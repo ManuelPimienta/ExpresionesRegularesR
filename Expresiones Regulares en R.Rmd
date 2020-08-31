@@ -1,0 +1,67 @@
+---
+title: "Expresiones Regulares en R"
+output: html_notebook
+---
+
+Las expresiones regulares <<regex>> son usadas para hallar patrones específicos de caracteres y reemplazarlos con otros.
+
+## Datos 
+```{r}
+x <- c("16_24cat", "25_34cat", "35_44catch", "45_54Cat", "55_104fat")
+```
+
+## Sintaxis básica
+Necesitamos especificar los caracteres (o clases de caracteres) que deseamos buscar, si es necesario con información sobre repeticiones y ubicación dentro de la cadena. Esto se logra con la ayuda de metacaracteres que tienen un significado específico: anchors (anclas), quantifiers (cuantificadores).
+
+## Anclas
+```{r}
+# ^ Start of the string
+# $ End of the string
+# \b Empty string at either edge of a word
+# \B NOT the edge of a word
+# \< Beginning of a word
+# \> End of a word 
+```
+
+## Cuantificadores
+```{r}
+# * Matches at least 0 times
+# + Matches at least 1 time
+# ? Matches at most 1 time; optional string
+# {n} Matches exactly n times
+# {n,} Matches at least n times
+# {,n} Matches at most n times
+# {n,m} Matches between n and m times
+```
+
+## Ejemplo
+```{r}
+strings <- c("a", "ab", "acb", "accb", "acccb", "accccb")
+strings
+grep("ac*b", strings, value = TRUE)
+grep("ac+b", strings, value = TRUE)
+grep("ac?b", strings, value = TRUE)
+grep("ac{2}b", strings, value = TRUE)
+grep("ac{2,}b", strings, value = TRUE)
+grep("ac{2,3}b", strings, value = TRUE)
+stringr::str_extract_all(strings, "ac{2,3}b", simplify = TRUE)
+```
+
+## grep
+Identifica la coincidencia con un patron. En el ejemplo se selecciona todos los items que contienen "cat"
+```{r}
+# Esto retorna los casos donde se encuentra el patrón
+grep(pattern = "cat", x, value = TRUE)
+```
+
+El comando anterior tiene en cuenta las mayúsculas, por eso no se incluye "Cat"
+```{r}
+# El signo "$" hace coincidir la expresion hasta el final de la cadena, mientras que se ignoran las mayúsculas.
+grep(pattern = "cat$", x, ignore.case = TRUE)
+```
+
+strsplit divide la cadena después del guion bajo o del signo que especifiquemos.
+```{r}
+strsplit(x, split = "_")
+```
+
