@@ -17,10 +17,21 @@ Necesitamos especificar los caracteres (o clases de caracteres) que deseamos bus
 ```{r}
 # ^ Start of the string
 # $ End of the string
-# \b Empty string at either edge of a word
+# \b Cadena vacía en cualquier borde de una palabra
 # \B NOT the edge of a word
 # \< Beginning of a word
 # \> End of a word 
+```
+
+```{r}
+strings <- c("a", "ab", "acb", "accb", "acccb", "accccb")
+strings
+```
+
+```{r}
+grep("^ab", strings, value = TRUE)
+grep("ab$", strings, value = TRUE)
+grep("\\bab", strings, value = TRUE)
 ```
 
 ## Cuantificadores
@@ -36,8 +47,6 @@ Necesitamos especificar los caracteres (o clases de caracteres) que deseamos bus
 
 ## Ejemplo
 ```{r}
-strings <- c("a", "ab", "acb", "accb", "acccb", "accccb")
-strings
 grep("ac*b", strings, value = TRUE)
 grep("ac+b", strings, value = TRUE)
 grep("ac?b", strings, value = TRUE)
@@ -64,4 +73,23 @@ strsplit divide la cadena después del guion bajo o del signo que especifiquemos
 ```{r}
 strsplit(x, split = "_")
 ```
+
+## Buscar y reemplazar
+```{r}
+gsub(pattern = "cat$", replacement = "fat", x = x, ignore.case = T)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
